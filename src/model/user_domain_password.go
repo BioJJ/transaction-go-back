@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 )
 
-func (ud *UserDomain) EncryptPassword() {
+func (ud *userDomain) EncryptPassword() {
 	hash := md5.New()
 	defer hash.Reset()
 	hash.Write([]byte(ud.password))

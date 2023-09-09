@@ -7,6 +7,7 @@ import (
 	"github.com/BioJJ/transaction-go-back/src/config/validation"
 	"github.com/BioJJ/transaction-go-back/src/controller/model/request"
 	"github.com/BioJJ/transaction-go-back/src/model"
+	"github.com/BioJJ/transaction-go-back/src/model/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -40,7 +41,9 @@ func CreateUser(c *gin.Context) {
 		userRequest.DateBirth,
 	)
 
-	if err := domain.CreateUser(); err != nil {
+	service := service.NewUserDomainService()
+
+	if err := service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}
