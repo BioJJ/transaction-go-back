@@ -1,13 +1,18 @@
 package controller
 
 import (
-	"fmt"
+	"net/http"
 
 	"github.com/BioJJ/transaction-go-back/src/config/logger"
 	"github.com/BioJJ/transaction-go-back/src/config/validation"
 	"github.com/BioJJ/transaction-go-back/src/controller/model/request"
+	"github.com/BioJJ/transaction-go-back/src/model"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+)
+
+var (
+	UserDomainInterface model.UserDomainInterface
 )
 
 func CreateUser(c *gin.Context) {
@@ -27,5 +32,21 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(userRequest)
+	domain := model.NewUserDomain(
+		userRequest.Email,
+		userRequest.Password,
+		userRequest.Name,
+		userRequest.Phone,
+		userRequest.DateBirth,
+	)
+
+	if err := domain.CreateUser(); err != nil {
+		c.JSON(err.Code, err)
+		return
+	}
+
+	logger.Info("User created successfully", zap.String("journey", "createUser"))
+
+	c.String(http.StatusOK, "")
+
 }
