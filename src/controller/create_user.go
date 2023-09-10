@@ -7,7 +7,7 @@ import (
 	"github.com/BioJJ/transaction-go-back/src/config/validation"
 	"github.com/BioJJ/transaction-go-back/src/controller/model/request"
 	"github.com/BioJJ/transaction-go-back/src/model"
-	"github.com/BioJJ/transaction-go-back/src/model/service"
+	"github.com/BioJJ/transaction-go-back/src/view"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -16,7 +16,7 @@ var (
 	UserDomainInterface model.UserDomainInterface
 )
 
-func CreateUser(c *gin.Context) {
+func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 
 	logger.Info("Init CreateUser controller",
 		zap.String("journey", "createUser"),
@@ -41,15 +41,13 @@ func CreateUser(c *gin.Context) {
 		userRequest.DateBirth,
 	)
 
-	service := service.NewUserDomainService()
-
-	if err := service.CreateUser(domain); err != nil {
+	if err := uc.service.CreateUser(domain); err != nil {
 		c.JSON(err.Code, err)
 		return
 	}
 
 	logger.Info("User created successfully", zap.String("journey", "createUser"))
 
-	c.String(http.StatusOK, "")
+	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domain))
 
 }
