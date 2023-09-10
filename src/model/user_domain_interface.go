@@ -38,13 +38,13 @@ func NewUserDomain(
 // 	}
 // }
 
-// func NewUserUpdateDomain(
-// 	name string,
-// 	phone, dateBirth string,
-// ) UserDomainInterface {
-// 	return &userDomain{
-// 		name: name,
-// 		phone:      phone,
-// 		dateBirth: dateBirth,
-// 	}
-// }
+func NewUserUpdateDomain(
+	name string,
+	phone, dateBirth string,
+) UserDomainInterface {
+	return &userDomain{
+		name:      name,
+		phone:     phone,
+		dateBirth: dateBirth,
+	}
+}
