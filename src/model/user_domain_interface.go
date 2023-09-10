@@ -1,6 +1,6 @@
 package model
 
-// import "github.com/BioJJ/transaction-go-back/src/config/rest_err"
+import "github.com/BioJJ/transaction-go-back/src/config/rest_err"
 
 type UserDomainInterface interface {
 	GetEmail() string
@@ -13,7 +13,7 @@ type UserDomainInterface interface {
 	SetID(string)
 
 	EncryptPassword()
-	// GenerateToken() (string, *rest_err.RestErr)
+	GenerateToken() (string, *rest_err.RestErr)
 }
 
 func NewUserDomain(
@@ -29,15 +29,14 @@ func NewUserDomain(
 	}
 }
 
-// func NewUserLoginDomain(
-// 	email, password string,
-// ) UserDomainIntrest_err
-// 	return &userDomain{
-// 		email:    email,
-// 		password: password,
-// 	}
-// }
-
+func NewUserLoginDomain(
+	email, password string,
+) UserDomainInterface {
+	return &userDomain{
+		email:    email,
+		password: password,
+	}
+}
 func NewUserUpdateDomain(
 	name string,
 	phone, dateBirth string,
