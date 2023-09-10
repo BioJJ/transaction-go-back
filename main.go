@@ -9,6 +9,7 @@ import (
 	"github.com/BioJJ/transaction-go-back/src/config/database/mongodb"
 	"github.com/BioJJ/transaction-go-back/src/controller"
 	"github.com/BioJJ/transaction-go-back/src/controller/routes"
+	"github.com/BioJJ/transaction-go-back/src/model/repository"
 	"github.com/BioJJ/transaction-go-back/src/model/service"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -29,11 +30,13 @@ func main() {
 		return
 	}
 
-	router := gin.Default()
+	// userController := initDependencies(database)
 
-	service := service.NewUserDomainService()
-
+	repo := repository.NewUserRepository(database)
+	service := service.NewUserDomainService(repo)
 	userController := controller.NewUserControllerInterface(service)
+
+	router := gin.Default()
 
 	routes.InitRoutes(&router.RouterGroup, userController)
 

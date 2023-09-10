@@ -1,7 +1,7 @@
 package model
 
 type userDomain struct {
-	// id        string
+	id        string
 	email     string
 	password  string
 	name      string
@@ -9,39 +9,13 @@ type userDomain struct {
 	dateBirth string
 }
 
-type UserDomainInterface interface {
-	GetEmail() string
-	GetPassword() string
-	GetName() string
-	GetPhone() string
-	GetDateBirth() string
-	// GetID() string
-	// SetID(string)
-
-	EncryptPassword()
-	// GenerateToken() (string, *rest_err.RestErr)
+func (ud *userDomain) GetID() string {
+	return ud.id
 }
 
-func NewUserDomain(
-	email, password, name string,
-	phone, dateBirth string,
-) UserDomainInterface {
-	return &userDomain{
-		email,
-		password,
-		name,
-		phone,
-		dateBirth,
-	}
+func (ud *userDomain) SetID(id string) {
+	ud.id = id
 }
-
-// func (ud *userDomain) GetID() string {
-// 	return ud.id
-// }
-
-// func (ud *userDomain) SetID(id string) {
-// 	ud.id = id
-// }
 
 func (ud *userDomain) GetEmail() string {
 	return ud.email
