@@ -19,6 +19,11 @@ func NewUserDomainService(
 type UserDomainService interface {
 	CreateUser(model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
 	UpdateUser(string, model.UserDomainInterface) *rest_err.RestErr
-	FindUser(string) (*model.UserDomainInterface, *rest_err.RestErr)
+	FindUserByIDServices(
+		id string,
+	) (model.UserDomainInterface, *rest_err.RestErr)
+	FindUserByEmailServices(
+		email string,
+	) (model.UserDomainInterface, *rest_err.RestErr)
 	DeleteUser(string) *rest_err.RestErr
 }
