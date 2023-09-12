@@ -11,6 +11,7 @@ import (
 	"github.com/BioJJ/transaction-go-back/src/controller/routes"
 	"github.com/BioJJ/transaction-go-back/src/model/repository"
 	"github.com/BioJJ/transaction-go-back/src/model/service"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -37,6 +38,14 @@ func main() {
 	userController := controller.NewUserControllerInterface(service)
 
 	router := gin.Default()
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"}
+	config.AllowCredentials = true
+	config.AllowHeaders = []string{"Content-Type", "Bearer", "Bearer ", "content-type", "Origin", "Accept", "authorization"}
+	config.AllowMethods = []string{"PUT", "GET", "POST", "DELETE", "OPTIONS"}
+
+	router.Use(cors.New(config))
 
 	routes.InitRoutes(&router.RouterGroup, userController)
 
