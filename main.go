@@ -2,9 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"os"
 
 	"github.com/BioJJ/transaction-go-back/src/config/database/mongodb"
 	"github.com/BioJJ/transaction-go-back/src/controller"
@@ -21,8 +19,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	fmt.Println("variavel de ambiente ==> ", os.Getenv("TEST"))
-
 	database, err := mongodb.NewMongoDBConnection(context.Background())
 	if err != nil {
 		log.Fatalf(
@@ -30,8 +26,6 @@ func main() {
 			err.Error())
 		return
 	}
-
-	// userController := initDependencies(database)
 
 	repo := repository.NewUserRepository(database)
 	service := service.NewUserDomainService(repo)
