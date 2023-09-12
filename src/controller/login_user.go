@@ -46,8 +46,9 @@ func (uc *userControllerInterface) LoginUserServices(c *gin.Context) {
 		zap.String("userId", domainResult.GetID()),
 		zap.String("journey", "loginUser"))
 
-	c.Header("Authorization", token)
-	c.JSON(http.StatusOK, view.ConvertDomainToResponse(
+	// c.Header("Authorization", token)
+	c.JSON(http.StatusOK, view.ConvertDomainToResponseLogin(
 		domainResult,
+		token,
 	))
 }

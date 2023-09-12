@@ -16,3 +16,17 @@ func ConvertDomainToResponse(
 		DateBirth: userDomain.GetDateBirth(),
 	}
 }
+
+func ConvertDomainToResponseLogin(
+	userDomain model.UserDomainInterface,
+	token string,
+) response.LoginResponse {
+	return response.LoginResponse{
+		ID:        userDomain.GetID(),
+		Email:     userDomain.GetEmail(),
+		Name:      userDomain.GetName(),
+		Phone:     userDomain.GetPhone(),
+		DateBirth: userDomain.GetDateBirth(),
+		Token:     token,
+	}
+}
